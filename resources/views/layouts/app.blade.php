@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Inlcudo gli assets con vite -->
-    @vite(['resources/js/app.js'])
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
     <!-- Icona -->
     {{-- <link rel="icon" href="{{ asset('img/favicon.ico') }}"> --}}
