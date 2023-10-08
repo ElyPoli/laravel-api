@@ -54,6 +54,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.projects.index') }}">Progetti</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -80,7 +83,7 @@
                                     <a class="dropdown-item" href="{{ url('admin/profile') }}">{{ __('Profile') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
