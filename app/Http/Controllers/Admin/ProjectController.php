@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Http\Requests\AddProjectsRequest;
-use App\Http\Requests\UpdateProjectsRequest;
+use App\Http\Requests\ProjectsUpsertRequest;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -52,7 +51,7 @@ class ProjectController extends Controller
     }
 
     // Riceve i dati dal "create" e li salva all'interno della tabella nel db (creando il nuovo elemento)
-    public function store(AddProjectsRequest $request)
+    public function store(ProjectsUpsertRequest $request)
     {
         // Inseirsco la validazione dei dati
         $data = $request->validated();
@@ -79,7 +78,7 @@ class ProjectController extends Controller
     }
 
     // Riceve i dati dall'"edit" e li salva all'interno della tabella nel db (modificando un elemento già esistente)
-    public function update(UpdateProjectsRequest $request, $slug)
+    public function update(ProjectsUpsertRequest $request, $slug)
     {
         $project = Project::where('slug', $slug)->first();
 
