@@ -22,7 +22,7 @@ class ProjectsUpsertRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|string|max:2",
+            "title" => "required|string|max:200",
             "description" => "nullable|string",
             "tools_used" => "required|string",
             "repository_link" => "required|string",
