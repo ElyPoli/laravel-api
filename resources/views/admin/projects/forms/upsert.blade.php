@@ -1,4 +1,4 @@
-<form action="{{ $action }}" method="POST" class="my-border">
+<form action="{{ $action }}" method="POST" enctype="multipart/form-data" class="my-border">
     @csrf()
     @method($method)
     <div class="mb-3">
@@ -15,6 +15,21 @@
         @error('description')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
+        {{-- immagine --}}
+        <div class="d-flex align-items-center mt-2">
+            @if ($project?->thumbnail)
+                <img class="old-img-project img-border me-4 mt-2"
+                    src="{{ old('thumbnail', asset('/storage/' . $project->thumbnail)) }}"
+                    alt="{{ old('title', $project?->title) }}">
+            @endif
+            <div class="w-100">
+                <label class="form-label fw-bold">Immagine:</label>
+                <input type="file" accept="image/*" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror">
+                @error('thumbnail')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
         {{-- strumenti utilizzati --}}
         <div class="form-group">
             <label class="form-label fw-bold mt-2">Strumenti utilizzati:</label>
@@ -46,8 +61,8 @@
         @error('url')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
-    </div>
-    {{-- pulsanti --}}
-    <button type="submit" class="btn btn-outline-primary me-1">Save</button>
-    <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-primary">Cancel</a>
+        </>
+        {{-- pulsanti --}}
+        <button type="submit" class="btn btn-outline-primary me-1 mt-4">Save</button>
+        <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-primary mt-4">Cancel</a>
 </form>
