@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Http\Requests\ProjectsUpsertRequest;
+use App\Http\Requests\AddProjectsRequest;
+use App\Http\Requests\UpdateProjectsRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -51,13 +53,16 @@ class ProjectController extends Controller
     }
 
     // Riceve i dati dal "create" e li salva all'interno della tabella nel db (creando il nuovo elemento)
-    public function store(ProjectsUpsertRequest $request)
+    public function store(AddProjectsRequest $request)
     {
         // Inseirsco la validazione dei dati
         $data = $request->validated();
 
         // Richiamo la funzione per generare uno slug univoco
         $data["slug"] = $this->createSlug($data["title"]);
+
+        // Salvo l'immagine all'interno del filesystem nella cartella projects
+        $data["thumbnail"] = Storage::put("projects", $data["thumbnail"]);
 
         // Creo una nuova istanza e salvo i dati immessi nel form
         $project = new Project();
@@ -76,7 +81,7 @@ class ProjectController extends Controller
     }
 
     // Riceve i dati dall'"edit" e li salva all'interno della tabella nel db (modificando un elemento già esistente)
-    public function update(ProjectsUpsertRequest $request, $slug)
+    public function update(UpdateProjectsRequest $request, $slug)
     {
         $project = Project::where('slug', $slug)->first();
 
@@ -89,6 +94,14 @@ class ProjectController extends Controller
             $data["slug"] = $this->createSlug($data["title"]);
         }
 
+        if (isset($data["thumbnail"])) {
+            // Elimino l'immagine salvata precedentemente
+            if ($project->thumbnail) {
+                Storage::delete($project->thumbnail);
+            }
+            $data["thumbnail"] = Storage::put("projects", $data["thumbnail"]); // salvo l'immagine all'interno del filesystem nella cartella projects
+        }
+
         // Aggiorno i dati dell'elemento
         $project->update($data);
 
@@ -99,6 +112,11 @@ class ProjectController extends Controller
     public function destroy($slug)
     {
         $project = Project::where('slug', $slug)->first();
+
+        // Elimino l'immagine salvata
+        if ($project->thumbnail) {
+            Storage::delete($project->thumbnail);
+        }
 
         $project->delete($slug);
 

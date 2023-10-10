@@ -19,6 +19,7 @@ class Project extends Model
     protected $fillable = [
         "title",
         "description",
+        "thumbnail",
         "tools_used",
         "repository_link",
         "url",
