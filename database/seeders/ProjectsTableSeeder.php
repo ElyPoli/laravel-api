@@ -16,6 +16,8 @@ class ProjectsTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
+        $tools = ['HTML', 'CSS', 'JavaScript', 'Vue.js', 'PHP', 'MySQL', 'Laravel'];
+        
         // Elimino i dati presenti nella tabella
         \App\Models\Project::truncate();
 
@@ -25,7 +27,7 @@ class ProjectsTableSeeder extends Seeder
 
             $project->title = $faker->word();
             $project->description = $faker->text(100);
-            $project->tools_used = $faker->words(5);
+            $project->tools_used = $faker->randomElements($tools, mt_rand(1, count($tools)));
             $project->repository_link = $faker->url();
             $project->url = $faker->url();
             $project->slug = Str::slug($project["title"]);

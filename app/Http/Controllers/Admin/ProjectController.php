@@ -56,8 +56,6 @@ class ProjectController extends Controller
         // Inseirsco la validazione dei dati
         $data = $request->validated();
 
-        $data["tools_used"] = explode(",", $data["tools_used"]);
-        
         // Richiamo la funzione per generare uno slug univoco
         $data["slug"] = $this->createSlug($data["title"]);
 
@@ -85,11 +83,10 @@ class ProjectController extends Controller
         // Inseirsco la validazione dei dati
         $data = $request->validated();
 
-        $data["tools_used"] = explode(",", $data["tools_used"]);
-
         // Se l'utente ha modificato il titolo, aggiorno lo slug
         if ($data["title"] !== $project->title) {
-            $data["slug"] = Str::slug($data["title"]);
+            // Richiamo la funzione per generare uno slug univoco
+            $data["slug"] = $this->createSlug($data["title"]);
         }
 
         // Aggiorno i dati dell'elemento

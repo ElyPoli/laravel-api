@@ -65,12 +65,25 @@ a {
 }
 
 .form-control {
-    color: #900c3f;
+    color: $primary-color;
     border: var(--bs-border-width) solid #900c3f;
 
     &:focus {
-        color: #900c3f;
-        border-color: #900c3f;
+        color: $primary-color;
+        border-color: $primary-color;
         box-shadow: 0 0 0 0.25rem rgba(144, 12, 63, 0.25);
+    }
+}
+
+.form-check-input {
+
+    &:checked {
+        background-color: $primary-color;
+        border-color: $primary-color;    
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(144, 12, 63, 0.25);
+        border-color: $primary-color;
     }
 }

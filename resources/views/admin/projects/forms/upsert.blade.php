@@ -16,13 +16,22 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
         {{-- strumenti utilizzati --}}
-        <label class="form-label fw-bold mt-2">Strumenti utilizzati:</label>
-        <input type="text" name="tools_used"
-            value="{{ old('tools_used', implode(', ', $project?->tools_used ?? [])) }}"
-            class="form-control @error('tools_used') is-invalid @enderror">
-        @error('tools_used')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <div class="form-group">
+            <label class="form-label fw-bold mt-2">Strumenti utilizzati:</label>
+            <div class="d-flex flex-wrap">
+                @foreach (['HTML', 'CSS', 'JavaScript', 'Vue.js', 'PHP', 'MySQL', 'Laravel'] as $tool)
+                    <div class="form-check m-1">
+                        <input class="form-check-input" type="checkbox" id="{{ $tool }}-select"
+                            name="tools_used[]" value="{{ $tool }}"
+                            {{ in_array($tool, old('tools_used', $project->tools_used ?? [])) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="{{ $tool }}-select">{{ $tool }}</label>
+                    </div>
+                @endforeach
+                @error('tools_used')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
         {{-- link repo --}}
         <label class="form-label fw-bold mt-2">Link repository:</label>
         <input type="url" name="repository_link" value="{{ old('repository_link', $project?->repository_link) }}"

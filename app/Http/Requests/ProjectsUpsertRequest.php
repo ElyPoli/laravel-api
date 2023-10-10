@@ -24,7 +24,7 @@ class ProjectsUpsertRequest extends FormRequest
         return [
             "title" => "required|string|max:200",
             "description" => "nullable|string",
-            "tools_used" => "required|string",
+            "tools_used" => "required",
             "repository_link" => "required|string",
             "url" => "required|string"
         ];
@@ -40,7 +40,7 @@ class ProjectsUpsertRequest extends FormRequest
         return [
             'title.required' => 'Il campo titolo è obbligatorio.',
             'title.max' => 'Il titolo non può superare i :max caratteri.',
-            'tools_used.required' => 'Il campo strumenti utilizzati è obbligatorio.',
+            'tools_used.required' => 'Seleziona almeno uno strumento.',
             'repository_link.required' => 'Il campo link del repository è obbligatorio.',
             'url.required' => 'Il campo URL è obbligatorio.',
         ];
