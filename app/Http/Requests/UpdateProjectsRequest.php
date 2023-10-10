@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectsUpsertRequest extends FormRequest
+class UpdateProjectsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,7 @@ class ProjectsUpsertRequest extends FormRequest
         return [
             "title" => "required|string|max:200",
             "description" => "nullable|string",
+            "thumbnail" => "nullable|image|max:10240",
             "tools_used" => "required",
             "repository_link" => "required|string",
             "url" => "required|string"
@@ -40,6 +41,8 @@ class ProjectsUpsertRequest extends FormRequest
         return [
             'title.required' => 'Il campo titolo è obbligatorio.',
             'title.max' => 'Il titolo non può superare i :max caratteri.',
+            'thumbnail.image' => 'Il file deve essere un\'immagine.',
+            'thumbnail.max' => 'L\'immagine non può superare 10 MB.',
             'tools_used.required' => 'Seleziona almeno uno strumento.',
             'repository_link.required' => 'Il campo link del repository è obbligatorio.',
             'url.required' => 'Il campo URL è obbligatorio.',
