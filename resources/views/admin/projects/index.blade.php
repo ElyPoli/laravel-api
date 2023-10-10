@@ -14,6 +14,8 @@
             @foreach ($projects as $project)
                 <div class="col">
                     <div class="card admin-projects-card">
+                        <img src="{{ asset('/storage/' . $project->thumbnail) }}" class="card-img-top"
+                            alt="{{ $project->title }}">
                         <div class="card-body d-flex flex-column justify-content-between">
                             <h5 class="card-title">{{ ucfirst($project->title) }}</h5>
                             <p class="card-text">{{ $project->description ? substr($project->description, 0, 100) : '' }}...
