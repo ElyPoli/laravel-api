@@ -27,6 +27,7 @@ class ProjectsTableSeeder extends Seeder
 
             $project->title = $faker->word();
             $project->description = $faker->text(100);
+            $project->thumbnail = $faker->imageUrl(640, 480, 'animals', true);
             $project->tools_used = $faker->randomElements($tools, mt_rand(1, count($tools)));
             $project->repository_link = $faker->url();
             $project->url = $faker->url();
