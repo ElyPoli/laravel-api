@@ -23,6 +23,12 @@ class Project extends Model
         "tools_used",
         "repository_link",
         "url",
+        "type_id",
         "slug"
     ];
+    
+    // Creo la relazione: ogni "project" può avere un solo "type"
+    public function type() {
+        return $this->belongsTo(Type::class);
+    }
 }
