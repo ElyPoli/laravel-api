@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,24 @@ Route::middleware(['auth', 'verified'])
         Route::put("/projects/{project}", [ProjectController::class, "update"])->name("projects.update");
         // Destroy
         Route::delete("/projects/{project}", [ProjectController::class, "destroy"])->name("projects.destroy");
+    });
+
+// Raggruppo le rotte per la parte admin di "types" e applicco il middleware per verificare che l'utente sia loggato
+Route::middleware(['auth', 'verified'])
+    ->prefix("admin") // aggiunge a tutte le rotte il prefisso indicato
+    ->name("admin.") // aggiunge al name di tutte le rotte il prefisso indicato
+    ->group(function () {
+        // Create
+        Route::get("/types/create", [TypeController::class, "create"])->name("types.create");
+        Route::post("/types", [TypeController::class, "store"])->name("types.store");
+        // Read
+        Route::get("/types", [TypeController::class, "index"])->name("types.index");
+        Route::get("/types/{type}", [TypeController::class, "show"])->name("types.show");
+        // Udate
+        Route::get("/types/{type}/edit", [TypeController::class, "edit"])->name("types.edit");
+        Route::put("/types/{type}", [TypeController::class, "update"])->name("types.update");
+        // Destroy
+        Route::delete("/types/{type}", [TypeController::class, "destroy"])->name("types.destroy");
     });
 
 Route::middleware('auth')->group(function () {
