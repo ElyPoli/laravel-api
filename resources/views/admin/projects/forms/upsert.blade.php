@@ -24,7 +24,8 @@
             @endif
             <div class="w-100">
                 <label class="form-label fw-bold">Immagine:</label>
-                <input type="file" accept="image/*" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror">
+                <input type="file" accept="image/*" name="thumbnail"
+                    class="form-control @error('thumbnail') is-invalid @enderror">
                 @error('thumbnail')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -47,6 +48,19 @@
                 @enderror
             </div>
         </div>
+        {{-- tipologia progetto --}}
+        <label class="form-label fw-bold mt-2">Tipologia progetto:</label>
+        <select class="form-select @error('type_id') is-invalid @enderror" name="type_id">
+            @foreach ($types as $type)
+                <option value="{{ $type->id }}"
+                    {{ (old('type_id') == $type->id || $project->type_id == $type->id) ? 'selected' : '' }}>
+                    {{ $type->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('type_id')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
         {{-- link repo --}}
         <label class="form-label fw-bold mt-2">Link repository:</label>
         <input type="url" name="repository_link" value="{{ old('repository_link', $project?->repository_link) }}"
