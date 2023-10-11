@@ -57,6 +57,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.projects.index') }}">Progetti</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.types.index') }}">Tipologia progetti</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -53,7 +53,7 @@
         <select class="form-select @error('type_id') is-invalid @enderror" name="type_id">
             @foreach ($types as $type)
                 <option value="{{ $type->id }}"
-                    {{ (old('type_id') == $type->id || $project->type_id == $type->id) ? 'selected' : '' }}>
+                    {{ (old('type_id') == $type->id || $project?->type_id == $type?->id) ? 'selected' : '' }}>
                     {{ $type->name }}
                 </option>
             @endforeach
