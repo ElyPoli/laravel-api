@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\AddProjectsRequest;
 use App\Http\Requests\UpdateProjectsRequest;
+use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -49,7 +50,9 @@ class ProjectController extends Controller
     // Ritorna una view che mostra un form dove poter inserire i dati di un nuovo elemento
     public function create()
     {
-        return view("admin.projects.create");
+        $types = Type::all();
+
+        return view("admin.projects.create", compact("types"));
     }
 
     // Riceve i dati dal "create" e li salva all'interno della tabella nel db (creando il nuovo elemento)
@@ -69,6 +72,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
+
         return redirect()->route("admin.projects.index");
     }
 
@@ -77,7 +81,9 @@ class ProjectController extends Controller
     {
         $project = Project::where('slug', $slug)->first();
 
-        return view("admin.projects.edit", compact("project"));
+        $types = Type::all();
+
+        return view("admin.projects.edit", compact("project", "types"));
     }
 
     // Riceve i dati dall'"edit" e li salva all'interno della tabella nel db (modificando un elemento già esistente)
