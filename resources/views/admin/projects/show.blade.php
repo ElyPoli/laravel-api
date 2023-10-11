@@ -30,6 +30,11 @@
                             <li>{{ $tool }}</li>
                         @endforeach
                     </ul>
+                    <div class="my-types-badge mb-2" style="background-color: {{ $project->type?->color }}">
+                        <p class="card-text">
+                            {{ $project->type?->name }}
+                        </p>
+                    </div>
                     <p>
                         <a href="{{ $project->repository_link }}">Guarda il codice nella repository</a>
                     </p>
@@ -38,7 +43,8 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="{{ asset("/storage/" . $project->thumbnail) }}" class="w-100 rounded-5 img-border" alt="{{ $project->title }}">
+                    <img src="{{ asset('/storage/' . $project->thumbnail) }}" class="w-100 rounded-5 img-border"
+                        alt="{{ $project->title }}">
                 </div>
             </div>
         </div>

@@ -28,6 +28,11 @@
                                     <li>{{ $tool }}</li>
                                 @endforeach
                             </ul>
+                            <div class="my-types-badge mb-2" style="background-color: {{ $project->type?->color }}">
+                                <p class="card-text">
+                                    {{ $project->type?->name }}
+                                </p>
+                            </div>
                             <p class="card-text">
                                 <a href="{{ $project->repository_link }}">Guarda la repository</a>
                             </p>
@@ -39,7 +44,8 @@
                                 </a>
                                 {{-- Pulsante per modificare un progetto --}}
                                 <a class="btn btn-outline-primary btn-icons me-2"
-                                    href="{{ route('admin.projects.edit', ['project' => $project->slug]) }}" role="button">
+                                    href="{{ route('admin.projects.edit', ['project' => $project->slug]) }}"
+                                    role="button">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
                                 {{-- Pulsante per eliminare un progetto --}}

@@ -70,7 +70,7 @@ a {
     padding: 2rem;
 }
 
-.form-control {
+.form-control, .form-select {
     color: $primary-color;
     border: var(--bs-border-width) solid #900c3f;
 
@@ -104,4 +104,14 @@ a {
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
+}
+
+.my-types-badge{
+    font-size: .8rem;
+    font-weight: bold;
+    color: #fff;
+    width: 100px;
+    border-radius: 20px;
+    padding: .3rem .8rem;
+    text-align: center;
 }
