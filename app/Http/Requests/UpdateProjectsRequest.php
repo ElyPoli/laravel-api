@@ -27,7 +27,8 @@ class UpdateProjectsRequest extends FormRequest
             "thumbnail" => "nullable|image|max:10240",
             "tools_used" => "required",
             "repository_link" => "required|string",
-            "url" => "required|string"
+            "url" => "required|string",
+            "type_id" => "nullable|exists:types,id" // "exists" verifica che l'id esiste nella tabella indicata
         ];
     }
 
@@ -45,7 +46,7 @@ class UpdateProjectsRequest extends FormRequest
             'thumbnail.max' => 'L\'immagine non può superare 10 MB.',
             'tools_used.required' => 'Seleziona almeno uno strumento.',
             'repository_link.required' => 'Il campo link del repository è obbligatorio.',
-            'url.required' => 'Il campo URL è obbligatorio.',
+            'url.required' => 'Il campo URL è obbligatorio.'
         ];
     }
 }
