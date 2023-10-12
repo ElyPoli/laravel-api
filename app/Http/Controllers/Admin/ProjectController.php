@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\ProjectsAddRequest;
 use App\Http\Requests\ProjectsUpdateRequest;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -51,8 +52,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view("admin.projects.create", compact("types"));
+        return view("admin.projects.create", compact("types", "technologies"));
     }
 
     // Riceve i dati dal "create" e li salva all'interno della tabella nel db (creando il nuovo elemento)
@@ -72,6 +74,11 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
+        // Verifico se nel form inviato ho la chiave "technologies"
+        if (key_exists("technologies", $data)) {
+            // Assegno manualmente l'array delle tecnologie
+            $project->technologies()->attach($data["technologies"]); // accedo alla relazione ed invoco il metodo attach
+        }
 
         return redirect()->route("admin.projects.index");
     }
@@ -82,8 +89,9 @@ class ProjectController extends Controller
         $project = Project::where('slug', $slug)->first();
 
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view("admin.projects.edit", compact("project", "types"));
+        return view("admin.projects.edit", compact("project", "types", "technologies"));
     }
 
     // Riceve i dati dall'"edit" e li salva all'interno della tabella nel db (modificando un elemento già esistente)
@@ -108,6 +116,11 @@ class ProjectController extends Controller
             $data["thumbnail"] = Storage::put("projects", $data["thumbnail"]); // salvo l'immagine all'interno del filesystem nella cartella projects
         }
 
+        // Assegno manualmente l'array delle tecnologie
+        // -> eseguo il detach dei tag non presenti nel nuovo array
+        // -> eseguo l'attach dei tag non presenti nel vecchio array
+        $project->technologies()->sync($data["technologies"]); // accedo alla relazione ed invoco il metodo sync
+
         // Aggiorno i dati dell'elemento
         $project->update($data);
 
@@ -123,6 +136,9 @@ class ProjectController extends Controller
         if ($project->thumbnail) {
             Storage::delete($project->thumbnail);
         }
+
+        // Prima di eliminare il progetto elimino la sua relazione nella tabella
+        $project->technologies()->detach();
 
         $project->delete($slug);
 
