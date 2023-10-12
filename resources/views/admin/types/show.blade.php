@@ -5,7 +5,7 @@
         <div class="my-border">
             <div class="my-types-badge">
                 <p class="card-text">
-                    {{ $type->name }}
+                    {{ ucfirst($type->name) }}
                 </p>
             </div>
             <div class="d-flex flex-wrap align-items-center pb-3">
@@ -24,6 +24,7 @@
                     </button>
                 </form>
             </div>
+            <p>{{ $type->description ? $type->description : '' }}</p>
             <div class="my-types-badge" style="background-color: {{ $type->color }}">
                 {{ $type->color }}
             </div>

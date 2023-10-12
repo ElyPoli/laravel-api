@@ -9,6 +9,12 @@
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
+        {{-- descrizione --}}
+        <label class="form-label fw-bold mt-2">Descrizione:</label>
+        <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description', $type?->description) }}</textarea>
+        @error('description')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
         {{-- colore --}}
         <label class="form-label fw-bold mt-2">Scegli un colore:</label>
         <input type="color" class="form-control form-control-color @error('color') is-invalid @enderror"

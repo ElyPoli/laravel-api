@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Nome</th>
+                        <th scope="col">Descrizione</th>
                         <th scope="col">Colore associato</th>
                         <th scope="col">Azioni</th>
                     </tr>
@@ -22,12 +23,15 @@
                 <tbody>
                     @foreach ($types as $type)
                         <tr>
-                            <td>{{ $type->name }}</td>
+                            <td>{{ ucfirst($type->name) }}</td>
+                            <td>
+                                {{ $type->description ? substr($type->description, 0, 50) : '' }}...
+                            </td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="my-types-badge" style="background-color: {{ $type->color }}">
                                         {{ $type->color }}
-                                    </div>    
+                                    </div>
                                 </div>
                             </td>
                             <td>

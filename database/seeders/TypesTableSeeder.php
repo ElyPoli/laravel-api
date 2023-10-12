@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Type;
+use Faker\Generator as Faker;
 
 class TypesTableSeeder extends Seeder
 {
@@ -26,7 +27,7 @@ class TypesTableSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(Faker $faker): void
     {
         // Recupero i dati da $rawTypes
         foreach ($this->rawTypes as $singleType) {
@@ -34,6 +35,7 @@ class TypesTableSeeder extends Seeder
 
             $type->name = $singleType["name"];
             $type->color = $singleType["color"];
+            $type->description = $faker->text(100);
 
             $type->save(); // Salvo i dati nella tabella del db
         }

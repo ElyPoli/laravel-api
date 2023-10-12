@@ -13,7 +13,8 @@ class Type extends Model
     // Creo un array con indicate le colonne da popolare
     protected $fillable = [
         "name",
-        "color"
+        "color",
+        "description"
     ];
 
     // Creo la relazione: ogni "type" può essere assegnato a più "projects"
