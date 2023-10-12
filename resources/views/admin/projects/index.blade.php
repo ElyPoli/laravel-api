@@ -20,19 +20,24 @@
                             <h5 class="card-title">{{ ucfirst($project->title) }}</h5>
                             <p class="card-text">{{ $project->description ? substr($project->description, 0, 100) : '' }}...
                             </p>
-                            <p class="card-text fst-italic mb-0">
-                                Strumenti utilizzati:
-                            </p>
-                            <ul>
-                                @foreach ($project['tools_used'] as $tool)
-                                    <li>{{ $tool }}</li>
-                                @endforeach
-                            </ul>
                             <div class="my-types-badge mb-2" style="background-color: {{ $project->type?->color }}">
                                 <p class="card-text">
                                     {{ $project->type?->name }}
                                 </p>
                             </div>
+                            @if (count($project->technologies) > 0)
+                                <p class="card-text fst-italic mb-0">
+                                    Strumenti utilizzati:
+                                </p>
+                                <ul>
+                                    @foreach ($project->technologies as $technology)
+                                        <li>
+                                            {{ $technology->name }}
+                                            <img class="my-card-icon" src="{{ $technology->icon }}" alt="{{ $technology->name }}">
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                             <p class="card-text">
                                 <a href="{{ $project->repository_link }}">Guarda la repository</a>
                             </p>

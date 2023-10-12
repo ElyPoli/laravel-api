@@ -35,15 +35,16 @@
         <div class="form-group">
             <label class="form-label fw-bold mt-2">Strumenti utilizzati:</label>
             <div class="d-flex flex-wrap">
-                @foreach (['HTML', 'CSS', 'JavaScript', 'Vue.js', 'PHP', 'MySQL', 'Laravel'] as $tool)
+                @foreach ($technologies as $technology)
                     <div class="form-check m-1">
-                        <input class="form-check-input" type="checkbox" id="{{ $tool }}-select"
-                            name="tools_used[]" value="{{ $tool }}"
-                            {{ in_array($tool, old('tools_used', $project->tools_used ?? [])) ? 'checked' : '' }}>
-                        <label class="form-check-label" for="{{ $tool }}-select">{{ $tool }}</label>
+                        <input class="form-check-input" type="checkbox" id="{{ $technology->id }}" name="technologies[]"
+                            value="{{ $technology->id }}"
+                            {{ $project?->technologies->contains($technology) || in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                        <label class="form-check-label"
+                            for="{{ $technology->id }}-select">{{ $technology->name }}</label>
                     </div>
                 @endforeach
-                @error('tools_used')
+                @error('technologies')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
@@ -53,7 +54,7 @@
         <select class="form-select @error('type_id') is-invalid @enderror" name="type_id">
             @foreach ($types as $type)
                 <option value="{{ $type->id }}"
-                    {{ (old('type_id') == $type->id || $project?->type_id == $type?->id) ? 'selected' : '' }}>
+                    {{ old('type_id') == $type->id || $project?->type_id == $type?->id ? 'selected' : '' }}>
                     {{ $type->name }}
                 </option>
             @endforeach
