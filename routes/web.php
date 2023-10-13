@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,24 @@ Route::middleware(['auth', 'verified'])
         Route::put("/types/{type}", [TypeController::class, "update"])->name("types.update");
         // Destroy
         Route::delete("/types/{type}", [TypeController::class, "destroy"])->name("types.destroy");
+    });
+
+// Raggruppo le rotte per la parte admin di "technologies" e applicco il middleware per verificare che l'utente sia loggato
+Route::middleware(['auth', 'verified'])
+    ->prefix("admin") // aggiunge a tutte le rotte il prefisso indicato
+    ->name("admin.") // aggiunge al name di tutte le rotte il prefisso indicato
+    ->group(function () {
+        // Create
+        Route::get("/technologies/create", [TechnologyController::class, "create"])->name("technologies.create");
+        Route::post("/technologies", [TechnologyController::class, "store"])->name("technologies.store");
+        // Read
+        Route::get("/technologies", [TechnologyController::class, "index"])->name("technologies.index");
+        Route::get("/technologies/{technology}", [TechnologyController::class, "show"])->name("technologies.show");
+        // Udate
+        Route::get("/technologies/{technology}/edit", [TechnologyController::class, "edit"])->name("technologies.edit");
+        Route::put("/technologies/{technology}", [TechnologyController::class, "update"])->name("technologies.update");
+        // Destroy
+        Route::delete("/technologies/{technology}", [TechnologyController::class, "destroy"])->name("technologies.destroy");
     });
 
 Route::middleware('auth')->group(function () {
