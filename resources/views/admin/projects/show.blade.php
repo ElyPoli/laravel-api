@@ -35,7 +35,7 @@
                             @foreach ($project->technologies as $technology)
                                 <li>
                                     {{ $technology->name }}
-                                    <img class="my-card-icon" src="{{ $technology->icon }}" alt="{{ $technology->name }}">
+                                    <img class="my-card-icon" src="{{ asset('/storage/' . $technology->icon) }}" alt="{{ $technology->name }}">
                                 </li>
                             @endforeach
                         </ul>

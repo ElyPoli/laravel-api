@@ -99,7 +99,6 @@ a {
 }
 
 .old-img-project {
-    height: 100px;
     width: 100px;
     object-fit: cover;
     object-position: center;
@@ -133,4 +132,9 @@ a {
     height: 50px;
     width: 50px;
     padding: 0.3rem;
+}
+
+.technology-icon {
+    height: 150px;
+    width: 150px;
 }
