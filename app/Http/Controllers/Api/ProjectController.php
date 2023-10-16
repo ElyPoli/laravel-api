@@ -11,10 +11,13 @@ class ProjectController extends Controller
     // Ritorna un file json con l'elenco di tutti i dati all’interno della tabella del db
     public function index()
     {
-        $projects = Project::all(); // prendo i dati dalla tabella del db
-        return response()->json([ // ritorno un file json
+        // Recupero una lista di progetti dal database e li suddivido in pagine
+        $projects = Project::paginate(5);
+
+        // Ritorno dei dati sotto forma di un file json
+        return response()->json([
             "message" => "Projects list",
             "results" => $projects
-        ]); 
+        ]);
     }
 }
