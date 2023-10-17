@@ -24,7 +24,9 @@ class ProjectController extends Controller
     // Ritorna un file json con l'elenco di tutti i dati di uno specifico elemento
     public function show($slug)
     {
-        $project = Project::where('slug', $slug)->first();
+        $project = Project::where('slug', $slug)
+            ->with(["type", "technologies"])
+            ->first();
 
         // Ritorno dei dati sotto forma di un file json
         return response()->json($project);
