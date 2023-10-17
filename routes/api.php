@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Creo la rotta api per mostrare tutti i progetti
 Route::get("projects", [ProjectController::class, "index"]);
+
+// Creo la rotta api per mostrare il singolo progetto
+Route::get('/projects/{slug}', [ProjectController::class, 'show']);

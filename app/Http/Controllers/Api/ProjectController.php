@@ -20,4 +20,13 @@ class ProjectController extends Controller
             "results" => $projects
         ]);
     }
+
+    // Ritorna un file json con l'elenco di tutti i dati di uno specifico elemento
+    public function show($slug)
+    {
+        $project = Project::where('slug', $slug)->first();
+
+        // Ritorno dei dati sotto forma di un file json
+        return response()->json($project);
+    }
 }
