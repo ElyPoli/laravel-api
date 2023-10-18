@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,6 @@ Route::get("projects", [ProjectController::class, "index"]);
 
 // Creo la rotta api per mostrare il singolo progetto
 Route::get('/projects/{slug}', [ProjectController::class, 'show']);
+
+// Creo la rotta api per salvare i dati del form dei contatti
+Route::post('/contacts', [ContactController::class, 'store']);
