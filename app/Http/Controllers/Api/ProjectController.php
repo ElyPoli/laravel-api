@@ -28,6 +28,11 @@ class ProjectController extends Controller
             ->with(["type", "technologies"])
             ->first();
 
+        // Se nessuno slug corrisponde alla ricerca restituisco 404
+        if (!$project) {
+            abort(404);
+        }
+
         // Ritorno dei dati sotto forma di un file json
         return response()->json($project);
     }
