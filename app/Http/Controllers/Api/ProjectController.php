@@ -12,7 +12,7 @@ class ProjectController extends Controller
     public function index()
     {
         // Recupero una lista di progetti dal database, li suddivido in pagine e aggiungo i dati delle relazioni "type" e "technologies"
-        $projects = Project::with(["type", "technologies"])->paginate(5);
+        $projects = Project::with(["type", "technologies"])->paginate(12);
 
         // Ritorno dei dati sotto forma di un file json
         return response()->json([
